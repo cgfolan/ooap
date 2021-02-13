@@ -45,7 +45,5 @@ def delete_item(list_to_parse: list, item_index: int):
     del list_to_parse[item_index]
     print(list_to_parse)
 
-delete_item(breakfast, 2)
-
 
 

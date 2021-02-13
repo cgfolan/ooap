@@ -8,8 +8,18 @@
     Bonus: Try using type declaration for the argument.
 """
 
-def print_list(list_to_parse):
-    """TODO: Add docstring"""
+def print_list(list_to_parse: str):
+    """Prints items in a list
+    
+    Parameters
+
+    list_to_parse: (str)
+        list of items to be printed
+
+    Returns
+    (str)
+        all items in list
+    """
     for item in list_to_parse:
         print(item)
 
@@ -40,8 +50,8 @@ def delete_item(list_to_parse, item_index):
     -------
     The list with the item removed
     """
-    # Do stuff here
-    pass # This just tells python to do nothing; remove it when you add your code
+
+    
 
 shopping_list = ["eggs", "ham", "sausages"] # A test list to remove an item from
 
