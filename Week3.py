@@ -8,7 +8,7 @@
 
 #Exercise 2
 a = (int(input('Pick a number 1-10: ')))
-
+# Convert int to text
 if a == 1:
     print('One')
 elif a == 2:
