@@ -19,7 +19,8 @@ print(Row1)
 print(Row2)
 print(Row3)
 
-
+#graph of the nodes, with horizontal and verticals
+#to determine win conditions
 import math
 SQ = math.sqrt(11)
 board_graph = {
@@ -29,7 +30,7 @@ board_graph = {
     'B1' : {'A1':10,'A2':SQ,'B2':1,'C1':10,'C2':SQ},
     'B2' : {'A1':SQ,'A2':10,'A3':SQ,'B1':1,'B3':1,'C1':SQ,'C2':10,'C3':SQ},
     'B3' : {'A2':SQ,'B2':1,'C2':SQ,'C3':10},
-    'C1' : {'B1':5,'B2':SQ,},
+    'C1' : {'B1':10,'B2':SQ,},
     'C2' : {'C1':1,'C3':1,'B1':SQ,'B2':10,'B3':SQ}
 }
 
