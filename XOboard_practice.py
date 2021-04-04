@@ -95,7 +95,7 @@ occupied_square= [0,2,3,7,9,]
                         #  [[7, 8], [1, 5], [3, 6]],  # for 9
                         #  ]
 
-if (1 and 2) or (4 and 7) in comp_occupied_squares and 0 not in occupied_square:
+if (1 and 2) or (4 and 7) in comp_occupied_squares and 0 not in occupied_square and comp_move == 0:
     print('success')
 else:
     print('fail')

@@ -9,8 +9,12 @@ board_list = [[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' ']]
 
 #function to display the game board
 def printboard(): 
+    """ 
+    Prints the current board.
+    """
     print('_________________________'),
     print('|       |       |       |'),
+
     print('|',board_list[0],'|',board_list[1],'|',board_list[2],'|'),
     print('|       |       |       |'),
     print('|-----------------------|'),
@@ -23,7 +27,7 @@ def printboard():
     print('|       |       |       |'),
     print('|-----------------------|')
 
-#Tracks occupied squares to check user imput against
+#Tracks occupied squares to check user imput against, as well as computer squares 
 occupied_squares = []
 comp_occupied_squares = []
 
@@ -39,16 +43,21 @@ def coin_toss():
         
 
 def player_move(move, player):
+    """
+    takes the player/computer's input, marks it as occupied,
+    adds the appropriate marker to the board,
+    and returns the updated board"""
     occupied_squares.append(move)
     board_list.pop(move)
     board_list.insert(move, player)
-    last_square = move
     printboard()
     
     
 
 def reset(player):
-    global turns
+    """
+    resets all relevant variables and lists for a new game
+    """
     global board_list
     global occupied_squares
     global play_again
@@ -58,6 +67,12 @@ def reset(player):
     play_again = input('Want to play again y/n?')    
     
 def checkwin(player):
+    """
+    Checks all winning possibilites for a 3x3 board of X's and O's.
+    Uses the length of occupied squares list to begin checking at
+    5 turns, the fewest possible moves before a win condition in
+    X's and O's. Also ends the game/
+    """
     global board_list
     global occupied_squares
     global play_again
@@ -77,58 +92,59 @@ def checkwin(player):
             reset(player)
 
 def drawcheck(occupied_squares,player):
+    """
+    Checks for a draw condition and prints accordingly. Ends the current game
+    """
     if len(occupied_squares) == 9:
         print('Draw!')
         reset(player)
 
 
 def winning_pairs():
+    """
+    Checks through the occupied and computer_occupied lists to evaluate if any number 0-8 would return win state.
+    Chooses random move otherwise.
+    """
     global comp_move
     global occupied_squares
     global comp_occupied_squares
     comp_move = -1
-    print(comp_occupied_squares)
-    if ((1 and 2) or (4 and 7) or (3 and 6) in comp_occupied_squares) and (0 not in occupied_squares) and comp_move == -1:
+    if ((1 and 2) or (4 and 7) or (3 and 6) in comp_occupied_squares) and (0 not in occupied_squares) and (comp_move == -1):
         comp_move = 0
-    elif ((0 and 3) or (4 and 7) in comp_occupied_squares) and 1 not in occupied_squares and comp_move == -1:
+    elif ((0 and 3) or (4 and 7) in comp_occupied_squares) and (1 not in occupied_squares) and (comp_move == -1):
         comp_move = 1
-    elif ((0 and 1) or (4 and 6) or (5 and 8) in comp_occupied_squares) and 2 not in occupied_squares and comp_move == -1:
+    elif ((0 and 1) or (4 and 6) or (5 and 8) in comp_occupied_squares) and (2 not in occupied_squares) and (comp_move == -1):
         comp_move = 2
-    elif ((0 and 6) or (4 and 5) in comp_occupied_squares) and 3 not in occupied_squares and comp_move == -1:
+    elif ((0 and 6) or (4 and 5) in comp_occupied_squares) and (3 not in occupied_squares) and (comp_move == -1):
         comp_move = 3
-    elif ((0 and 8) or (1 and 7) or (2 and 6) or (3 and 5) in comp_occupied_squares) and 4 not in occupied_squares and comp_move == -1:
+    elif ((0 and 8) or (1 and 7) or (2 and 6) or (3 and 5) in comp_occupied_squares) and (4 not in occupied_squares) and (comp_move == -1):
         comp_move = 4
-    elif ((2 and 8) or (3 and 4) in comp_occupied_squares) and 5 not in occupied_squares and comp_move == -1:
+    elif ((2 and 8) or (3 and 4) in comp_occupied_squares) and (5 not in occupied_squares) and (comp_move == -1):
         comp_move = 5
-    elif ((0 and 3) or (2 and 4) or (7 and 8) in comp_occupied_squares) and 6 not in occupied_squares and comp_move == -1:
+    elif ((0 and 3) or (2 and 4) or (7 and 8) in comp_occupied_squares) and (6 not in occupied_squares) and (comp_move == -1):
         comp_move = 6
-    elif ((6 and 8) or (1 and 4) in comp_occupied_squares) and 7 not in occupied_squares and comp_move == -1:
+    elif ((6 and 8) or (1 and 4) in comp_occupied_squares) and (7 not in occupied_squares) and (comp_move == -1):
         comp_move = 7
-    elif ((6 and 7) or (0 and 4) or (2 and 4) in comp_occupied_squares) and 8 not in occupied_squares and comp_move == -1:
+    elif ((6 and 7) or (0 and 4) or (2 and 4) in comp_occupied_squares) and (8 not in occupied_squares) and (comp_move == -1):
         comp_move = 8
     elif comp_move == -1:
-        try:
-            comp_move = random.randint(0,8)
-            while comp_move in occupied_squares:
-                comp_move =random.randint(0,8)
-                continue
-        print(comp_move)
-        print(comp_occupied_squares)
+        comp_move = random.randint(0,8)
+    elif len(occupied_squares) < 4:
+        comp_move = random.randint(0,8)
 
 
 
+# Assigns who's playing first
 if (coin % 2 == 0):
     player = '  X  '
     opponent = '  O  '
 else:
     player = '  O  '
     opponent = '  X  ' 
-coin_toss()
+    coin_toss()
     
 
 while play_again == 'y':
-        
-          
         printboard()
         if player == '  X  ':
             #Take input from user and check to see if valid
@@ -149,14 +165,21 @@ while play_again == 'y':
             player_move(user_move, player)
             checkwin(player)
             drawcheck(occupied_squares,player)
+            #sets player to computer
             player = '  O  '
-        
+        # Computer turn
         elif  player == '  O  ':
             winning_pairs()
+            #randomly selects move in early stage of game
+            if len(occupied_squares) < 4 :
+                 comp_move = random.randint(0,8)
+                 while comp_move in occupied_squares:
+                    comp_move = random.randint(0,8)
             player_move(comp_move,player)
             comp_occupied_squares.append(comp_move)
             checkwin(player)
             drawcheck(occupied_squares,player)
+            #sets player to user
             player = '  X  '
 
                         
