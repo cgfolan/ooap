@@ -1,19 +1,6 @@
 import math
 import random
 
-SQ = math.sqrt(11)
-
-board_graph: {
-    '0' : {'1': 1,'3': 10, '4': SQ},
-    '1' : {'0': 1, '2': 1,'3': SQ,'4': 10,'5': SQ},
-    '2' : {'1': 1, '4': SQ, '5': 10},
-    '3' : {'0': 10,'1': SQ,'4': 1,'6': 10,'7': SQ},
-    '4' : {'0': SQ,'1': 10,'2': SQ,'3': 1,'5': 1,'6': SQ,'7': 10,'8': SQ},
-    '5' : {'1': SQ,'4': 1,'7': SQ,'8': 10},
-    '6' : {'3': 10,'4': SQ},
-    '7' : {'6': 1,'8': 1,'3': SQ,'4': 10,'5': SQ},
-    '8' : {'4': SQ, '5': 10, '7': 1}
-}
 
 # List of empty cells to populate the board
 board_list = [[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' ']]
@@ -34,8 +21,8 @@ def printboard():
     print('|       |       |       |'),
     print('|-----------------------|')
 
-#Tracks the last square played for search purposes. Set to str in case of computer playing first
-last_square = 'first_move'
+#Tracks the last square played for search purposes. Set to random in case of computer playing first
+last_square = random.randint(1,100)
 
 #Tracks occupied squares to check user imput against
 occupied_squares = []
@@ -56,6 +43,41 @@ def player_move(move, player):
     board_list.pop(move)
     board_list.insert(move, player)
     last_square = move
+
+def reset(player):
+    global turns
+    global board_list
+    global occupied_squares
+    global play_again
+    board_list = board_list = [[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' ']]
+    occupied_squares = []
+    play_again = input('Want to play again y/n?: ')    
+    
+def checkwin(player):
+    global board_list
+    global occupied_squares
+    global play_again
+    if len(occupied_squares) > 4  :
+        if  (board_list[0] == board_list[1] == board_list[2] == player or
+            board_list[3] == board_list[4] == board_list[5] == player or
+            board_list[6] == board_list[7] == board_list[8] == player or
+            board_list[0] == board_list[3] == board_list[6] == player or
+            board_list[1] == board_list[4] == board_list[7] == player or
+            board_list[2] == board_list[5] == board_list[8] == player or
+            board_list[0] == board_list[4] == board_list[8] == player or
+            board_list[2] == board_list[5] == board_list[6] == player):
+            if player == '  X  ':
+                print('You win!')
+            else:
+                print('You lose!')
+            reset(player)
+    elif len(occupied_squares) == 9:
+        reset(player)
+        print('Draw!')
+        play_again = input('Want to play again?: y/n')
+
+
+
 
 play_again = 'Yes'
 
@@ -93,6 +115,7 @@ while play_again == 'Yes' or 'y':
             last_square = user_move
             printboard()
             print(occupied_squares)
+            checkwin(player)
             player = '  O  '
         
         elif  player == '  O  ':
@@ -102,4 +125,10 @@ while play_again == 'Yes' or 'y':
             player_move(comp_move,player)
             last_square = comp_move
             print(occupied_squares)    
+            checkwin(player)
             player = '  X  '
+
+
+
+
+    
