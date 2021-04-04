@@ -41,45 +41,62 @@
 #     print('_________________________'),
 #     print('|       |       |       |'),
 #     print('|',board_list[0],'|',board_list[1],'|',board_list[2],'|'),
-#     print('|       |       |       |'),
-#     print('|-----------------------|'),
-#     print('|       |       |       |'),
-#     print('|',board_list[3],'|',board_list[4],'|',board_list[5],'|'),
-#     print('|       |       |       |'),
-#     print('|-----------------------|'),
-#     print('|       |       |       |'),
-#     print('|',board_list[6],'|',board_list[7],'|',board_list[8],'|'),
-#     print('|       |       |       |'),
-#     print('|-----------------------|')
+# #     print('|       |       |       |'),
+# #     print('|-----------------------|'),
+# #     print('|       |       |       |'),
+# #     print('|',board_list[3],'|',board_list[4],'|',board_list[5],'|'),
+# #     print('|       |       |       |'),
+# #     print('|-----------------------|'),
+# #     print('|       |       |       |'),
+# #     print('|',board_list[6],'|',board_list[7],'|',board_list[8],'|'),
+# #     print('|       |       |       |'),
+# #     print('|-----------------------|')
 
 
-# printboard()
-# player_counter = 10
-# opposite_counter = 20
+# # printboard()
+# # player_counter = 10
+# # opposite_counter = 20
 
-# print(player_counter)
-# print(opposite_counter)
-# def swap(a, b):
-#     a,b = b,a
+# # print(player_counter)
+# # print(opposite_counter)
+# # def swap(a, b):
+# #     a,b = b,a
 
-# swap(a = player_counter,b = opposite_counter)
-# print(player_counter)
-# print(opposite_counter)
+# # swap(a = player_counter,b = opposite_counter)
+# # print(player_counter)
+# # print(opposite_counter)
 
-import random
-def coin_toss():
-    coin = random.randint(1,100)
-    if (coin % 2 == 0):
-        print('You go first!')
-        player = '  X  '
-        opponent = '  O  '
-    else:
-        print('Computer to go first')
-        player = '  O  '
-        opponent = '  X  '
+# import random
+# def coin_toss():
+#     coin = random.randint(1,100)
+#     if (coin % 2 == 0):
+#         print('You go first!')
+#         player = '  X  '
+#         opponent = '  O  '
+#     else:
+#         print('Computer to go first')
+#         player = '  O  '
+#         opponent = '  X  '
 
-coin_toss()
-print(coin)
-print(player)
+# coin_toss()
+# print(coin)
+# print(player)
 
+comp_occupied_squares= [2,7,4]
+occupied_square= [0,2,3,7,9,]
+ # [[2, 3], [5, 9], [4, 7]],  # for 1
+                        #  #[[1, 3], [5, 8]],  # for 2
+                        #  [[1, 2], [5, 7], [6, 9]],  # for 3
+                        #  [[1, 7], [5, 6]],  # for 4
+                        #  [[1, 9], [2, 8], [3, 7], [4, 6]],  # for 5
+                        #  [[3, 9], [4, 5]],  # for 6
+                        #  [[1, 4], [5, 3], [8, 9]],  # for 7
+                        #  [[7, 9], [2, 5]],  # for 8
+                        #  [[7, 8], [1, 5], [3, 6]],  # for 9
+                        #  ]
+
+if (1 and 2) or (4 and 7) in comp_occupied_squares and 0 not in occupied_square:
+    print('success')
+else:
+    print('fail')
 

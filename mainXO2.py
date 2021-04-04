@@ -82,8 +82,39 @@ def drawcheck(occupied_squares,player):
         reset(player)
 
 
+def winning_pairs():
+    global comp_move
+    global occupied_squares
+    global comp_occupied_squares
+    comp_move = -1
+    print(comp_occupied_squares)
+    if ((1 and 2) or (4 and 7) or (3 and 6) in comp_occupied_squares) and (0 not in occupied_squares) and comp_move == -1:
+        comp_move = 0
+    elif ((0 and 3) or (4 and 7) in comp_occupied_squares) and 1 not in occupied_squares and comp_move == -1:
+        comp_move = 1
+    elif ((0 and 1) or (4 and 6) or (5 and 8) in comp_occupied_squares) and 2 not in occupied_squares and comp_move == -1:
+        comp_move = 2
+    elif ((0 and 6) or (4 and 5) in comp_occupied_squares) and 3 not in occupied_squares and comp_move == -1:
+        comp_move = 3
+    elif ((0 and 8) or (1 and 7) or (2 and 6) or (3 and 5) in comp_occupied_squares) and 4 not in occupied_squares and comp_move == -1:
+        comp_move = 4
+    elif ((2 and 8) or (3 and 4) in comp_occupied_squares) and 5 not in occupied_squares and comp_move == -1:
+        comp_move = 5
+    elif ((0 and 3) or (2 and 4) or (7 and 8) in comp_occupied_squares) and 6 not in occupied_squares and comp_move == -1:
+        comp_move = 6
+    elif ((6 and 8) or (1 and 4) in comp_occupied_squares) and 7 not in occupied_squares and comp_move == -1:
+        comp_move = 7
+    elif ((6 and 7) or (0 and 4) or (2 and 4) in comp_occupied_squares) and 8 not in occupied_squares and comp_move == -1:
+        comp_move = 8
+    elif comp_move == -1:
+        try:
+            comp_move = random.randint(0,8)
+            while comp_move in occupied_squares:
+                comp_move =random.randint(0,8)
+                continue
+        print(comp_move)
+        print(comp_occupied_squares)
 
-turns = 0
 
 
 if (coin % 2 == 0):
@@ -116,85 +147,16 @@ while play_again == 'y':
                 print('Square already occupied! Try Again.')
                 continue
             player_move(user_move, player)
-            turns += 1
             checkwin(player)
             drawcheck(occupied_squares,player)
             player = '  O  '
         
         elif  player == '  O  ':
-             # [[2, 3], [5, 9], [4, 7]],  # for 1
-            # [[1, 3], [5, 8]],  # for 2
-            # [[1, 2], [5, 7], [6, 9]],  # for 3
-            # [[1, 7], [5, 6]],  # for 4
-            # [[1, 9], [2, 8], [3, 7], [4, 6]],  # for 5
-            # [[3, 9], [4, 5]],  # for 6
-            # [[1, 4], [5, 3], [8, 9]],  # for 7
-            # [[7, 9], [2, 5]],  # for 8
-            # [[7, 8], [1, 5], [3, 6]],  # for 9
-            if turns < 4:
-                
-                comp_move = random.randint(0,8)
-                print(comp_move)
-                while comp_move in occupied_squares:
-                    comp_move = random.randint(0,8)
+            winning_pairs()
+            player_move(comp_move,player)
+            comp_occupied_squares.append(comp_move)
+            checkwin(player)
+            drawcheck(occupied_squares,player)
+            player = '  X  '
 
-                player_move(comp_move,player)
-                comp_occupied_squares.append(comp_move)
-                checkwin(player)
-                drawcheck(occupied_squares,player)
-                turns += 1
-                player = '  X  '
-
-            elif [1,2] or [4,8] or [3,6] in comp_occupied_squares:
-                if 0 not in occupied_squares:
-                    comp_move = 0
-                    checkwin(player)
-            elif [0,2] or [4,7] in comp_occupied_squares:
-                    if 1 not in occupied_squares:
-                         comp_move = 1
-                         checkwin(player)
-            elif [0,1] or [4,8] or [5,8] in comp_occupied_squares:
-                        if 2 not in occupied_squares:
-                            comp_move = 2
-                            checkwin(player)
-            elif [0,6] or [4,5] in comp_occupied_squares:
-                if 3 not in occupied_squares:
-                    comp_move = 3
-                    checkwin(player)
-            elif [0,8] or [1,7] or [2,6] or [3,5] in comp_occupied_squares:
-                if 4 not in occupied_squares:
-                    comp_move = 4
-                    checkwin(player)
-            elif [2,8] or [3,4] in comp_occupied_squares:
-                if 5 not in occupied_squares:
-                    comp_move = 5
-                    checkwin(player)
-            elif [0,3] or [4,2] or [7,8] in comp_occupied_squares:
-                if 6 not in occupied_squares:
-                    comp_move = 6
-                    checkwin(player)
-            elif [6,8] or [0,4] or [2,5] in comp_occupied_squares:
-                if 7 not in occupied_squares:
-                    comp_move = 7     
-                    checkwin(player) 
-            elif [6,7] or [0,4] or [2,5] in comp_occupied_squares:
-                if 8 not in occupied_squares:
-                    comp_move = 8     
-                    checkwin(player)                   
-                else:
-                    comp_move = random.randint(0,8)
-                    while comp_move in occupied_squares:
-                        comp_move = random.randint(0,8)
-
-                    player_move(comp_move,player)
-                    comp_occupied_squares.append(comp_move)
-                    print(comp_occupied_squares)
-                    checkwin(player)
-                    drawcheck(occupied_squares,player)
-                    turns += 1
-                    player = '  X  '
-
-
-
-
-    
+                        
