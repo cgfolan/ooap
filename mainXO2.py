@@ -43,6 +43,9 @@ def player_move(move, player):
     board_list.pop(move)
     board_list.insert(move, player)
     last_square = move
+    printboard()
+    
+    
 
 def reset(player):
     global turns
@@ -71,13 +74,11 @@ def checkwin(player):
             else:
                 print('You lose!')
             reset(player)
-    elif len(occupied_squares) == 9:
-        reset(player)
+
+def drawcheck(occupied_squares,player):
+    if len(occupied_squares) == 9:
         print('Draw!')
-        play_again = input('Want to play again?: y/n')
-
-
-
+        reset(player)
 
 play_again = 'Yes'
 
@@ -94,6 +95,8 @@ while play_again == 'Yes' or 'y':
     
 
     while player == '  X  ' or '  O  ':
+        
+          
         printboard()
         if player == '  X  ':
             #Take input from user and check to see if valid
@@ -113,9 +116,8 @@ while play_again == 'Yes' or 'y':
                 continue
             player_move(user_move, player)
             last_square = user_move
-            printboard()
-            print(occupied_squares)
             checkwin(player)
+            drawcheck(occupied_squares,player)
             player = '  O  '
         
         elif  player == '  O  ':
@@ -123,9 +125,9 @@ while play_again == 'Yes' or 'y':
             while comp_move in occupied_squares:
                 comp_move = random.randint(0,8)
             player_move(comp_move,player)
-            last_square = comp_move
-            print(occupied_squares)    
+            last_square = comp_move    
             checkwin(player)
+            drawcheck(occupied_squares,player)
             player = '  X  '
 
 
