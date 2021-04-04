@@ -54,16 +54,32 @@
 
 
 # printboard()
-player_counter = 10
-opposite_counter = 20
+# player_counter = 10
+# opposite_counter = 20
 
-print(player_counter)
-print(opposite_counter)
-def swap(a, b):
-    a,b = b,a
+# print(player_counter)
+# print(opposite_counter)
+# def swap(a, b):
+#     a,b = b,a
 
-swap(a = player_counter,b = opposite_counter)
-print(player_counter)
-print(opposite_counter)
+# swap(a = player_counter,b = opposite_counter)
+# print(player_counter)
+# print(opposite_counter)
+
+import random
+def coin_toss():
+    coin = random.randint(1,100)
+    if (coin % 2 == 0):
+        print('You go first!')
+        player = '  X  '
+        opponent = '  O  '
+    else:
+        print('Computer to go first')
+        player = '  O  '
+        opponent = '  X  '
+
+coin_toss()
+print(coin)
+print(player)
 
 
