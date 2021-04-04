@@ -1,6 +1,20 @@
 import math
 import random
 
+SQ = math.sqrt(11)
+
+board_graph: {
+    '0' : {'1': 1,'3': 10, '4': SQ},
+    '1' : {'0': 1, '2': 1,'3': SQ,'4': 10,'5': SQ},
+    '2' : {'1': 1, '4': SQ, '5': 10},
+    '3' : {'0': 10,'1': SQ,'4': 1,'6': 10,'7': SQ},
+    '4' : {'0': SQ,'1': 10,'2': SQ,'3': 1,'5': 1,'6': SQ,'7': 10,'8': SQ},
+    '5' : {'1': SQ,'4': 1,'7': SQ,'8': 10},
+    '6' : {'3': 10,'4': SQ},
+    '7' : {'6': 1,'8': 1,'3': SQ,'4': 10,'5': SQ},
+    '8' : {'4': SQ, '5': 10, '7': 1}
+}
+
 # List of empty cells to populate the board
 board_list = [[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' ']]
 
@@ -31,7 +45,6 @@ occupied_squares = []
 coin = random.randint(1,100)
 
 def coin_toss():
-    coin = random.randint(1,100)
     if (coin % 2 == 0):
         print('You go first!')
     else:
@@ -46,6 +59,8 @@ def player_move(move, player):
 
 play_again = 'Yes'
 
+last_square = random.randint(0,8)
+
 while play_again == 'Yes' or 'y':
     if (coin % 2 == 0):
         player = '  X  '
@@ -54,9 +69,10 @@ while play_again == 'Yes' or 'y':
         player = '  O  '
         opponent = '  X  ' 
     coin_toss()
-    printboard()
+    
 
     while player == '  X  ' or '  O  ':
+        printboard()
         if player == '  X  ':
             #Take input from user and check to see if valid
             try:
@@ -65,7 +81,7 @@ while play_again == 'Yes' or 'y':
                 print('Please pick a number 1-9')
                 continue
                  # Check if input is within the range 1-9
-            if user_move < 0 or user_move > 9:
+            if user_move < 1 or user_move > 9:
                 print('Illegal move! Try again.')
                 continue
                 # Check if square is occupied
@@ -76,26 +92,14 @@ while play_again == 'Yes' or 'y':
             player_move(user_move, player)
             last_square = user_move
             printboard()
+            print(occupied_squares)
             player = '  O  '
         
-        else:
-            if last_square == 'first_move':
+        elif  player == '  O  ':
+            comp_move = random.randint(0,8)
+            while comp_move in occupied_squares:
                 comp_move = random.randint(0,8)
-                player_move(comp_move, player)
-                printboard()
-                print(player)
-                last_square = comp_move
-                player = '  X  '
-            else:
-                try:
-                    comp_move = random.randint(0,8)
-                except comp_move in occupied_squares:
-                    comp_move = random.randint(0,8)
-                    continue
             player_move(comp_move,player)
             last_square = comp_move
-            printboard()
+            print(occupied_squares)    
             player = '  X  '
-
-
-    
