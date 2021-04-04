@@ -1,6 +1,8 @@
 import math
 import random
 
+play_again = 'y'
+
 
 # List of empty cells to populate the board
 board_list = [[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' ']]
@@ -54,7 +56,8 @@ def reset(player):
     global play_again
     board_list = board_list = [[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' '],[' ']]
     occupied_squares = []
-    play_again = input('Want to play again y/n?: ')    
+    player = ''
+    play_again = input('Want to play again y/n?')    
     
 def checkwin(player):
     global board_list
@@ -68,7 +71,7 @@ def checkwin(player):
             board_list[1] == board_list[4] == board_list[7] == player or
             board_list[2] == board_list[5] == board_list[8] == player or
             board_list[0] == board_list[4] == board_list[8] == player or
-            board_list[2] == board_list[5] == board_list[6] == player):
+            board_list[2] == board_list[4] == board_list[6] == player):
             if player == '  X  ':
                 print('You win!')
             else:
@@ -80,21 +83,21 @@ def drawcheck(occupied_squares,player):
         print('Draw!')
         reset(player)
 
-play_again = 'Yes'
+
 
 last_square = random.randint(0,8)
 
-while play_again == 'Yes' or 'y':
-    if (coin % 2 == 0):
-        player = '  X  '
-        opponent = '  O  '
-    else:
-        player = '  O  '
-        opponent = '  X  ' 
-    coin_toss()
+
+if (coin % 2 == 0):
+    player = '  X  '
+    opponent = '  O  '
+else:
+    player = '  O  '
+    opponent = '  X  ' 
+coin_toss()
     
 
-    while player == '  X  ' or '  O  ':
+while play_again == 'y':
         
           
         printboard()
